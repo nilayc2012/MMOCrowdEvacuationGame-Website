@@ -90,9 +90,6 @@ session_start();
 
 				<p><?php echo $_GET["maxp"] ?></p>
 
-<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/load_report.php?gameid=<?php echo $_GET['gid'] ?>&gname=<?php echo $_GET['gname'] ?>&owner=<?php echo $_GET['owner'] ?>" style="position:relative; left: 300px; bottom: -30px; background-color: green;" class="btn btn-info" role="button">User Play Details</a>
-
-
 
 <?php
 $_SESSION['gid']= $_GET['gid'];

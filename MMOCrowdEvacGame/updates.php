@@ -62,6 +62,57 @@ session_start();
 		
 	}
 
+	$gamover_list=array();
+	$sql="SELECT * FROM gameoverstrategy";
+	$result = $conn->query($sql);
+
+	if($result->num_rows >=1)
+	{
+		while ($row = $result->fetch_assoc())
+		{ 
+
+			array_push($gamover_list, $row["gameovername"]);
+
+		}
+		$_SESSION["gameoverlist"]=$gamover_list;
+
+		
+	}
+
+	$diff_list=array();
+	$sql="SELECT * FROM difficulty";
+	$result = $conn->query($sql);
+
+	if($result->num_rows >=1)
+	{
+		while ($row = $result->fetch_assoc())
+		{ 
+
+			array_push($diff_list, $row["diffname"]);
+
+		}
+		$_SESSION["difflist"]=$diff_list;
+
+		
+	}
+
+	$ctype_list=array();
+	$sql="SELECT * FROM competition_type";
+	$result = $conn->query($sql);
+
+	if($result->num_rows >=1)
+	{
+		while ($row = $result->fetch_assoc())
+		{ 
+
+			array_push($ctype_list, $row["ctypename"]);
+
+		}
+		$_SESSION["ctypelist"]=$ctype_list;
+
+		
+	}
+
 $_SESSION["tab"]="liveupdate";
 	header("Location: http://spanky.rutgers.edu/MMOCrowdEvacGame/profile.php");
 

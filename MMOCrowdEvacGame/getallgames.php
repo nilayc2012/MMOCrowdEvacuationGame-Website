@@ -21,7 +21,7 @@ $uid=$_POST["uid"];
 				$result1 = $conn->query($sql1);
 				$row1=$result1->fetch_assoc();
 		$data_list=array();
-			$user_list= $user_list . $row1["gameid"] . "," . $row1["gamename"] . "," . $row1["gamenvid"] . "," .$row1["gameruleid"] . "," . $row1["minplayers"] . "," . $row1["maxplayers"] . "," . $row1["owner"] . "," . $row1["game_desc"] . "~"; 
+			$user_list= $user_list . $row1["gameid"] . "," . $row1["gamename"] . "," . $row1["gamenvid"] . "," .$row1["gameruleid"] . "," . $row1["gameoverid"] . "," . $row1["diffid"] . "," . $row1["ctypeid"] . "," . $row1["minplayers"] . "," . $row1["maxplayers"] . "," . $row1["owner"] . "," . $row1["game_desc"] . "~"; 
 		}
 
 		

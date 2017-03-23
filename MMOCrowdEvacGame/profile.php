@@ -26,6 +26,59 @@ session_start();
       margin: auto;
   }
   </style>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    	document.getElementById("srch-term4").value=2;
+	document.getElementById("srch-term4").disabled=true;
+	document.getElementById("srch-term5").value=2;
+	document.getElementById("srch-term5").disabled=true;
+});
+function changeMinMaxVav()
+{
+    var e = document.getElementsByName("ctype")[0];
+    var ctype = e.options[e.selectedIndex].value; 
+
+    if(ctype==1)
+    {
+	document.getElementById("srch-term4").placeholder = "Minimum Number of Players";
+	document.getElementById("srch-term5").placeholder = "Maximum Number of Players";
+	document.getElementById("srch-term4").value=2;
+	document.getElementById("srch-term4").disabled=true;
+	document.getElementById("srch-term5").value=2;
+	document.getElementById("srch-term5").disabled=true;
+    }
+    else if(ctype==2)
+    {
+	document.getElementById("srch-term4").placeholder = "Minimum Number of Players Per Team";
+	document.getElementById("srch-term4").disabled=false;
+	document.getElementById("srch-term5").placeholder = "Maximum Number of Players Per Team";
+	document.getElementById("srch-term5").disabled=false;
+	document.getElementById("srch-term4").value="";
+	document.getElementById("srch-term5").value="";
+    }
+    else if(ctype==3 || ctype==5)
+    {
+	document.getElementById("srch-term4").placeholder = "Minimum Number of Players";
+	document.getElementById("srch-term5").placeholder = "Maximum Number of Players";
+	document.getElementById("srch-term4").disabled=false;
+	document.getElementById("srch-term5").disabled=false;
+	document.getElementById("srch-term4").value="";
+	document.getElementById("srch-term5").value="";
+    }
+    else if(ctype==4)
+    {
+	document.getElementById("srch-term4").placeholder = "Minimum Number of Players";
+	document.getElementById("srch-term5").placeholder = "Maximum Number of Players";
+	document.getElementById("srch-term4").value=1;
+	document.getElementById("srch-term4").disabled=true;
+	document.getElementById("srch-term5").value=1;
+	document.getElementById("srch-term5").disabled=true;
+    }
+
+}
+</script>
+
   </head>
  
 <body>
@@ -166,23 +219,26 @@ else
     <div class="input-group add-on">
       <input class="form-control" placeholder="Enter Game Name" name="game-name" id="srch-term2" type="text" required />
 	<textarea class="form-control" placeholder="Enter Game Description" name="game-desc" id="srch-term1" type="text"></textarea>
+
 <div class="textstyle">Choose The Game Environment</div>
+
   <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="width:500px; height:350px; position:relative; top:150px; left:-370px;">
-    <div class="carousel-inner" role="listbox" style="position:relative; top:-75px;">
+<br/><br/><br/><br/> <br/><br/>  
+<div class="carousel-inner" role="listbox" style="position:relative; top:-75px;">
       <div class="item active">
-        <img src="img/1.jpg" alt="Chania" >
+        <img src="img/env/1.jpg" alt="Chania" >
       </div>
 
       <div class="item">
-        <img src="img/2.jpg" alt="Chania">
+        <img src="img/env/2.jpg" alt="Chania">
       </div>
     
       <div class="item">
-        <img src="img/3.jpg" alt="Flower">
+        <img src="img/env/3.jpg" alt="Flower">
       </div>
 
       <div class="item">
-        <img src="img/4.jpg" alt="Flower">
+        <img src="img/env/4.jpg" alt="Flower">
       </div>
     </div>
 
@@ -206,10 +262,65 @@ foreach ($_SESSION["gamerulelist"] as $value)
 {?>
   <option class="optionclass" value="<?php echo $count ?>"><?php echo $value ?> </option>
 <?php
+$count=$count+1;
 }}?>
 </select>
-      <input class="form-control" placeholder="Minimum Number of Players" name="minp" id="srch-term4" type="number" required />
-      <input class="form-control" placeholder="Maximum Number of Players" name="maxp" id="srch-term5" type="number" required />
+<br/><br/><br/><br/>
+<div class="textstyle1">Game Over Strategy</div>
+<select name="gameover" id="srch-term3">
+<?php echo count($_SESSION["gameoverlist"]) ?>
+<?php 
+if(count($_SESSION["gameoverlist"])!=0){
+$count=1;
+foreach ($_SESSION["gameoverlist"] as $value)
+{?>
+  <option class="optionclass" value="<?php echo $count ?>"><?php echo $value ?> </option>
+<?php
+$count=$count+1;
+}}?>
+</select>
+<br/><br/><br/><br/>
+<div class="textstyle1">Difficulty</div>
+<select name="diff" id="srch-term3">
+<?php 
+if(count($_SESSION["difflist"])!=0){
+$count=1;
+foreach ($_SESSION["difflist"] as $value)
+{?>
+  <option class="optionclass" value="<?php echo $count ?>"><?php echo $value ?> </option>
+<?php
+$count=$count+1;
+}}?>
+</select>
+<br/><br/><br/><br/>
+<div class="textstyle1">Competition Type</div>
+<select name="ctype" id="srch-term3" onchange="changeMinMaxVav();">
+<?php 
+if(count($_SESSION["ctypelist"])!=0){
+$count=1;
+foreach ($_SESSION["ctypelist"] as $value)
+{?>
+  <option class="optionclass" value="<?php echo $count ?>"><?php echo $value ?> </option>
+<?php
+$count=$count+1;
+}}?>
+</select>
+<br/><br/><br/><br/><br/><br/>
+<div class="textstyle1">Report Details</div>
+<ul id="checkpos">
+<li><input type="checkbox" name="pstartpos" value="y"/>Player Start Position </li>
+<li><input type="checkbox" name="pendpos" value="y"/>Player End Position </li>
+<li><input type="checkbox" name="score" value="y"/>Score </li>
+<li><input type="checkbox" name="scoretype" value="y"/>Score Type</li>
+<li><input type="checkbox" name="pathpoints" value="y">Path Points </li>
+<li><input type="checkbox" name="goaltype" value="y"/>Goal Type</li>
+<li><input type="checkbox" name="goalpos" value="y"/>Goal Positions</li>
+</ul>
+</select>
+      <input class="form-control" placeholder="Minimum Number of Players" name="minp" id="srch-term4" type="number" min=1 required />
+      <input class="form-control" placeholder="Maximum Number of Players" name="maxp" id="srch-term5" type="number" min=1 required />
+
+
 <button class="btn btn-default" id="buttonstyle2" type="submit" >Create Game</button>
 
     </div>
@@ -258,6 +369,7 @@ else
 
 
     <script src="js/index.js"></script>
+<script src="js/dropdownJS.js"></script>
 <script src="js/bootstrap-dialog.min.js"></script>
 <script src="js/bootstrap-dialog.js"></script>
 <script>
@@ -274,6 +386,16 @@ BootstrapDialog.alert('Game Created');
 </script>
 <?php
 }
+else if( $_SESSION["game-response"]==="failed")
+{
+$_SESSION["game-response"]="";
 ?>
+<script>
+BootstrapDialog.alert('Gamename Exits');
+</script>
+<?php
+}
+?>
+
 </body>
 </html>
