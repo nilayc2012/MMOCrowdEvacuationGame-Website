@@ -17,11 +17,12 @@ $uid=$_POST["uid"];
 	{
 		while ($row = $result->fetch_assoc())
 		{ 
-				$sql1="SELECT * FROM games where gameid=" . $row["gameid"];
+				$sql1="SELECT * FROM games where gameid=" . $row["gameid"] . " and live='y'";
 				$result1 = $conn->query($sql1);
-				$row1=$result1->fetch_assoc();
+				if($row1=$result1->fetch_assoc()){
 		$data_list=array();
-			$user_list= $user_list . $row1["gameid"] . "," . $row1["gamename"] . "," . $row1["gamenvid"] . "," .$row1["gameruleid"] . "," . $row1["gameoverid"] . "," . $row1["diffid"] . "," . $row1["ctypeid"] . "," . $row1["minplayers"] . "," . $row1["maxplayers"] . "," . $row1["owner"] . "," . $row1["game_desc"] . "~"; 
+			$user_list= $user_list . $row1["gameid"] . "," . $row1["gamename"] . "," . $row1["gamenvid"] . "," .$row1["gameruleid"] . "," . $row1["gameoverid"] . "," . $row1["diffid"] . "," . $row1["ctypeid"] . "," . $row1["minplayers"] . "," . $row1["maxplayers"] . "," . $row1["owner"] . "," . $row1["game_desc"] . "~";
+		} 
 		}
 
 		

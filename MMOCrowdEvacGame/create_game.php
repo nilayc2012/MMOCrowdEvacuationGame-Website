@@ -8,10 +8,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$rule = $_POST['rule'];
 	$minp = $_POST['minp'];
 	$maxp = $_POST['maxp'];
+
 	$gameover = $_POST['gameover'];
+
 	$diff = $_POST['diff'];
 	$ctype = $_POST['ctype'];
-	
+
+	if($rule==3)
+	{
+		$gameover=2;
+ 		$ctype=4;
+
+	}
+	if($rule==4)
+	{
+		$gameover=2;
+
+	}
 	if(isset($_POST['pstartpos']))
 		$spos=$_POST['pstartpos'];
 	else
@@ -31,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$stype=$_POST['scoretype'];
 	else
 		$stype='n';
+	if(isset($_POST['scorertype']))
+		$scrtype=$_POST['scorertype'];
+	else
+		$scrtype='n';
 
 	if(isset($_POST['pathpoints']))
 		$ppoints=$_POST['pathpoints'];
@@ -47,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	else
 		$gpos='n';
 
-
 	if($ctype==='1')
 	{
 		$minp=2;
@@ -56,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	else if($ctype==='2')
 	{
 		$minp=2*$minp;
-		$maxp=2*maxp;
+		$maxp=2*$maxp;
 	}
 	
 	else if($ctype==='4')
@@ -88,10 +104,10 @@ else{
 	$row = mysqli_fetch_array($result);
 	$gid = intval($row["max(gameid)"])+1;	
 	$sql = "INSERT INTO games
-	VALUES (" . $gid. ",'" . $gname . "', '" . $env . "','" . $rule . "','" . $minp . "','" . $maxp . "','" . $_SESSION["userid"] . "','" . $gdsc . "','" . $gameover . "','" . $diff . "','" . $ctype ."')";
+	VALUES (" . $gid. ",'" . $gname . "', '" . $env . "','" . $rule . "','" . $minp . "','" . $maxp . "','" . $_SESSION["userid"] . "','" . $gdsc . "','" . $gameover . "','" . $diff . "','" . $ctype ."','y')";
 
 	$sql3 = "INSERT INTO report
-	VALUES (" . $gid. ",'" . $spos . "', '" . $epos . "','" . $score . "','" . $stype . "','" . $ppoints . "','" . $gtype . "','" . $gpos ."')";
+	VALUES (" . $gid. ",'" . $spos . "', '" . $epos . "','" . $score . "','" . $stype . "','" . $ppoints . "','" . $gtype . "','" . $gpos . "','" . $scrtype ."')";
 	
 	if ($conn->query($sql) === TRUE && $conn->query($sql3) === TRUE) {
 
@@ -106,6 +122,7 @@ else{
 		
 		$_SESSION["game-response"] = "created";
 		$_SESSION["tab"]="create";
+		
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;

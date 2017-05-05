@@ -5,7 +5,6 @@ session_start();
 ?>
 
 
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,10 +21,10 @@ session_start();
 <link rel="stylesheet" href="css/bootstrap-dialog.min.css">
 <link rel="stylesheet" href="css/bootstrap-dialog.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
 	</head>
 	
-	<body>
+		<body>
+
 
   <div class="top"><h1><a style="text-decoration:none; color: #000000" href='http://spanky.rutgers.edu/MMOCrowdEvacGame/'>MMOArcade</a> <small>The World of Gamers</small></h1></div>
 <div id="searchdiv1">
@@ -42,7 +41,28 @@ session_start();
 				
 				<div>
 					<h1><?php echo $_GET["gname"] ?></h1>
-					<p>Created By <?php echo $_GET["owner"] ?></p>
+					<p>Created By <?php echo $_GET["owner"] ?> 
+
+<?php 
+if($_SESSION["type"]==="surveyor")
+{
+if($_SESSION["game-live"]==="y")
+{
+?>
+<span><div class="container">
+<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/go_offline.php?gameid=<?php echo $_GET["gid"] ?>" class="btn btn-info" style="background-color: green;" role="button">Live</a>
+</div></span>
+<?php
+}
+else
+{?>
+<span><div class="container">
+<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/go_live.php?gameid=<?php echo $_GET["gid"] ?>" class="btn btn-info" style ="background-color: red;"role="button">Offline</a>
+</div></span>
+<?php
+}}
+?>
+</p>
 				</div>
 
 			</header>
@@ -90,9 +110,15 @@ session_start();
 
 				<p><?php echo $_GET["maxp"] ?></p>
 
+<?php
+if($_SESSION['userid']===$_GET["ownid"])
+{
+?>
 <a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/load_report.php?gameid=<?php echo $_GET['gid'] ?>&gname=<?php echo $_GET['gname'] ?>&owner=<?php echo $_GET['owner'] ?>" style="position:relative; left: 300px; bottom: -30px; background-color: green;" class="btn btn-info" role="button">User Play Details</a>
 
-
+<?php
+}
+?>
 
 <?php
 $_SESSION['gid']= $_GET['gid'];
@@ -122,6 +148,7 @@ else
 <?php
 }}
 ?>
+
 			</section>
 
 

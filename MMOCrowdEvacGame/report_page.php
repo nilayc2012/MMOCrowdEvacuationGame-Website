@@ -17,12 +17,11 @@ session_start();
 		<!-- description text that displays below the link in google search results -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<meta name="description" content="Description of site" /> 
-      <link rel="stylesheet" href="css/style1.css">
+      <link rel="stylesheet" href="css/style2.css">
 
 <link rel="stylesheet" href="css/bootstrap-dialog.min.css">
 <link rel="stylesheet" href="css/bootstrap-dialog.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
 	</head>
 	
 	<body>
@@ -50,77 +49,43 @@ session_start();
 	  
 			<article id="block1" class="module-block">
 			
-			<h2>Description</h2>
-				
+			
 
-				<p><?php echo $_GET["gdesc"] ?></p>
+</table>	
 
-				<h4>Number of Current User</h4>
-				
-
-				<p><?php echo $_GET["numuser"] ?></p>
-
-				<h4>Game Style</h4>
-				
-
-				<p><?php echo $_GET["gamerule"] ?></p>
-
-				<h4>Game Over Strategy</h4>
-				
-
-				<p><?php echo $_GET["gameover"] ?></p>
-
-				<h4>Game Difficulty</h4>
-				
-
-				<p><?php echo $_GET["diff"] ?></p>
-
-				<h4>Game Competition Type</h4>
-				
-
-				<p><?php echo $_GET["ctype"] ?></p>
-
-
-				<h4>Minimum Number Of Players</h4>
-				
-
-				<p><?php echo $_GET["minp"] ?></p>
-				<h4>Maximum Number Of Players</h4>
-				
-
-				<p><?php echo $_GET["maxp"] ?></p>
-
-
-<?php
-$_SESSION['gid']= $_GET['gid'];
-
-if($_SESSION["type"]==="surveyor")
-{?>
-				        <div class="container">
-<a href="#" onclick="removeGame(<?php echo $_GET['gid'] ?> )" class="btn btn-info" role="button">Remove The Game</a>
-</div>
-<?php
-}
-else
-{
-if(isset($_SESSION["game" . $_GET['gid']]))
-{
+<section>
+  <!--for demo wrap-->
+ <h2>Report Details</h2>
+<span style="position:absolute; top:330px; left:950px;" class="container">
+<a href="#" onclick="downloadData('<?php echo $_GET['gid'] ?>','<?php echo $_GET['gname'] ?>','<?php echo $_GET['owner'] ?>' )" class="btn btn-info" style ="background-color: green;"role="button">Download Data</a>
+</span>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+<th>Game ID</th><th>Game Play ID</th><th>Player ID</th><th>Game Name</th><th>Score</th><th>Score Type</th><th>Goal Type</th><th>Scorer Type</th><th>Goal Positions</th><th>Player Positions</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+<?php 
+if(count($_SESSION["report_list"])!=0){
 ?>
-				        <div class="container">
-<a href="#" onclick="removeGame1(<?php echo $_GET['gid'] ?> )" class="btn btn-info" role="button">Remove The Game</a>
-</div>
+<table>
 <?php
-}
-else
+foreach ($_SESSION["report_list"] as $value)
 {?>
-				        <div class="container">
-<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/addusergame.php" class="btn btn-info" role="button">Add The Game</a>
-</div>
+<?php echo $value ?>
 <?php
 }}
 ?>
-			</section>
-
+      </tbody>
+    </table>
+  </div>
+</section>
 
 	
 
@@ -132,55 +97,17 @@ else
 <script src="js/bootstrap-dialog.min.js"></script>
 <script src="js/bootstrap-dialog.js"></script>
 <script src="js/index.js"></script>
+
 <?php 
-if ( $_SESSION["game-response"]==="deleted")
+if( $_SESSION["report-load-response"]==="failed")
 {
-$_SESSION["game-response"]="";
+$_SESSION["report-load-response"]="";
 ?>
 <script>
-BootstrapDialog.alert('Game Deleted');
-window.location = " http://spanky.rutgers.edu/MMOCrowdEvacGame/updates.php";
+BootstrapDialog.alert('No Game Data');
 </script>
 <?php
 }
-elseif ( $_SESSION["game-response"]==="cantdelete")
-{
-$_SESSION["game-response"]="";
 ?>
-<script>
-BootstrapDialog.alert('Cannot Delete : The Game is Being Used');
-</script>
-<?php
-}
-elseif ( $_SESSION["game-response"]==="notowner")
-{
-$_SESSION["game-response"]="";
-?>
-<script>
-BootstrapDialog.alert('Cannot Delete : You are not the owner');
-</script>
-<?php
-}
-elseif ( $_SESSION["game-response"]==="added")
-{
-$_SESSION["game-response"]="";
-?>
-<script>
-BootstrapDialog.alert('Game Added to Your Profile. Play on the Desktop application.');
-</script>
-<?php
-}
-elseif ( $_SESSION["game-response"]==="deleted")
-{
-$_SESSION["game-response"]="";
-?>
-<script>
-BootstrapDialog.alert('The Game is removed from Your Profile.');
-</script>
-<?php
-}
-
-?>
-
 	</body>
 </html>

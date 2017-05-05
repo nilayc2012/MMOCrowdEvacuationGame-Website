@@ -44,7 +44,8 @@ session_start();
 			$_SESSION["game".$_GET["gid"]]="added";
 		}
 
-		header('Location: http://spanky.rutgers.edu/MMOCrowdEvacGame/gameprofile.php?gid=' . $row["gameid"] . '&gname=' . $row["gamename"] . '&numuser=' . $result8->num_rows . '&gdesc=' . $row["game_desc"] . '&gamerule=' . $row1["gamerulename"] . '&gameover=' . $row5["gameovername"] . '&diff=' . $row6["diffname"] . '&ctype=' . $row7["ctypename"] . '&minp=' . $row["minplayers"] . '&maxp=' . $row["maxplayers"] . '&owner=' . $row3["fname"] . $row3["lname"]);
+		$_SESSION["game-live"]=$row["live"];
+		header('Location: http://spanky.rutgers.edu/MMOCrowdEvacGame/gameprofile.php?gid=' . $row["gameid"] . '&ownid=' . $row["owner"] . '&gname=' . $row["gamename"] . '&numuser=' . $result8->num_rows . '&gdesc=' . $row["game_desc"] . '&gamerule=' . $row1["gamerulename"] . '&gameover=' . $row5["gameovername"] . '&diff=' . $row6["diffname"] . '&ctype=' . $row7["ctypename"] . '&minp=' . $row["minplayers"] . '&maxp=' . $row["maxplayers"] . '&owner=' . $row3["fname"] . $row3["lname"]);
 		
 	}
 			

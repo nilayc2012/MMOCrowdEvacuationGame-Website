@@ -96,6 +96,9 @@ session_start();
                         <a class="page-scroll" href="#team">Team</a>
                     </li>-->
                     <li>
+                        <a class="page-scroll" href="#demo">Gameplay Videos</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
                 </ul>
@@ -190,7 +193,7 @@ unset($_SESSION['response']);
 			else
 			{
 			?>
-			<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/game/MMOCrowdGame.exe" class="page-scroll btn btn-xl">Install The Game</a>
+			<a href="http://spanky.rutgers.edu/MMOCrowdEvacGame/game/MMOGameArcadeInstaller.exe" class="page-scroll btn btn-xl">Install The Game</a>
 			<?php
 			}
 			?>
@@ -333,7 +336,7 @@ unset($_SESSION['response']);
     	<div class="container" style="text-align: center;">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Demo</h2>
+                    <h2 class="section-heading">Gameplay Videos</h2>
                     <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
@@ -391,7 +394,40 @@ unset($_SESSION['response']);
             </div>
         </div>
     </section>-->
-    
+   <section id="demo">
+    	<div class="container" style="text-align: center;">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Gameplay Videos</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VAhiA6oFIww" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wVAWVHwCm_0" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uvoJ4RFSjmE" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6PxBMID_7a0" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sukAYzsciUc" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/E7obtyQhu4I" frameborder="0" allowfullscreen></iframe>
+</div>
+                <div class="col-md-6 col-sm-6 portfolio-item videos">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lTvQ6dX2fZw" frameborder="0" allowfullscreen></iframe>
+</div>
+			</div>
+    	</div>
+    </section>
+ 
     <!-- Contact Section -->
     <section id="contact">
         <div class="container">

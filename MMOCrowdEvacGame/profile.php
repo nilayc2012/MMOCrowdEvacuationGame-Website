@@ -29,10 +29,7 @@ session_start();
 
 <script type="text/javascript">
 $( document ).ready(function() {
-    	document.getElementById("srch-term4").value=2;
-	document.getElementById("srch-term4").disabled=true;
-	document.getElementById("srch-term5").value=2;
-	document.getElementById("srch-term5").disabled=true;
+changeMinMaxVav();
 });
 function changeMinMaxVav()
 {
@@ -76,6 +73,59 @@ function changeMinMaxVav()
 	document.getElementById("srch-term5").disabled=true;
     }
 
+}
+
+function checkMaxGreaterMin()
+{
+	document.getElementById("srch-term5").min=document.getElementById("srch-term4").value;
+}
+
+function onChangeDropDownValue()
+{
+	var ctype = document.getElementsByName("ctype")[0];
+
+	var gameover = document.getElementsByName("gameover")[0];
+
+	var rule = document.getElementsByName("rule")[0];
+
+	var diff = document.getElementsByName("diff")[0];
+
+
+	if(rule.selectedIndex==2)
+	{
+		gameover.options[1].selected=true;
+		gameover.disabled=true;
+
+		ctype.options[3].selected=true;
+		ctype.disabled=true;
+		document.getElementById("srch-term4").value=1;
+		document.getElementById("srch-term5").value=1;
+
+	}
+
+	else if(rule.selectedIndex==3)
+	{
+		ctype.disabled=false;
+
+		if(ctype.selectedIndex==3)
+		{
+			gameover.options[1].selected=true;
+			gameover.disabled=true;
+			document.getElementById("srch-term4").value=1;
+			document.getElementById("srch-term5").value=1;
+
+		}
+		else
+		{
+			gameover.disabled=false;
+		}	
+	}
+	else
+	{
+		gameover.disabled=false;
+		ctype.disabled=false;
+
+	}
 }
 </script>
 
@@ -254,7 +304,7 @@ else
   </div>
 <input type="hidden" name="env-ch" id="env-ch" value="1"/>
 <div class="textstyle1">Choose The Game Rule</div>
-<select name="rule" id="srch-term3">
+<select name="rule" id="srch-term3" onchange="onChangeDropDownValue();">
 <?php 
 if(count($_SESSION["gamerulelist"])!=0){
 $count=1;
@@ -267,7 +317,7 @@ $count=$count+1;
 </select>
 <br/><br/><br/><br/>
 <div class="textstyle1">Game Over Strategy</div>
-<select name="gameover" id="srch-term3">
+<select name="gameover" id="srch-term3" onchange="onChangeDropDownValue();">
 <?php echo count($_SESSION["gameoverlist"]) ?>
 <?php 
 if(count($_SESSION["gameoverlist"])!=0){
@@ -281,7 +331,7 @@ $count=$count+1;
 </select>
 <br/><br/><br/><br/>
 <div class="textstyle1">Difficulty</div>
-<select name="diff" id="srch-term3">
+<select name="diff" id="srch-term3" onchange="onChangeDropDownValue();">
 <?php 
 if(count($_SESSION["difflist"])!=0){
 $count=1;
@@ -294,7 +344,7 @@ $count=$count+1;
 </select>
 <br/><br/><br/><br/>
 <div class="textstyle1">Competition Type</div>
-<select name="ctype" id="srch-term3" onchange="changeMinMaxVav();">
+<select name="ctype" id="srch-term3" onchange="changeMinMaxVav();onChangeDropDownValue();">
 <?php 
 if(count($_SESSION["ctypelist"])!=0){
 $count=1;
@@ -306,27 +356,47 @@ $count=$count+1;
 }}?>
 </select>
 <br/><br/><br/><br/><br/><br/>
-<div class="textstyle1">Report Details</div>
-<ul id="checkpos">
-<li><input type="checkbox" name="pstartpos" value="y"/>Player Start Position </li>
-<li><input type="checkbox" name="pendpos" value="y"/>Player End Position </li>
-<li><input type="checkbox" name="score" value="y"/>Score </li>
-<li><input type="checkbox" name="scoretype" value="y"/>Score Type</li>
-<li><input type="checkbox" name="pathpoints" value="y">Path Points </li>
-<li><input type="checkbox" name="goaltype" value="y"/>Goal Type</li>
-<li><input type="checkbox" name="goalpos" value="y"/>Goal Positions</li>
-</ul>
-</select>
-      <input class="form-control" placeholder="Minimum Number of Players" name="minp" id="srch-term4" type="number" min=1 required />
+<div class="control-group">
+<div class="textstyle1">Report Details
+<br/><br/>
+    <div class="controls span2">
+        <label class="checkbox">
+            <input type="checkbox" name="pstartpos" value="y" id="inlineCheckbox1"> <span style="font-size:15px;color:#75167c;">Player Start Position</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="pendpos" value="y" id="inlineCheckbox2"> <span style="font-size:15px;color:#75167c;">Player End Position</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="score" value="y" id="inlineCheckbox3"> <span style="font-size:15px;color:#75167c;">Score</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="scoretype" value="y" id="inlineCheckbox3"> <span style="font-size:15px;color:#75167c;">Score Type</span>
+        </label>
+    </div>
+    <div class="controls span2">
+        <label class="checkbox">
+            <input type="checkbox" name="scorertype" value="y" id="inlineCheckbox1"> <span style="font-size:15px;color:#75167c;">Scorer Type</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="pathpoints" value="y" id="inlineCheckbox2"> <span style="font-size:15px;color:#75167c;">Path Points</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="goaltype" value="y" id="inlineCheckbox3"> <span style="font-size:15px;color:#75167c;">Goal Type</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="goalpos" value="y" id="inlineCheckbox3"> <span style="font-size:15px;color:#75167c;">Goal Positions</span>
+        </label>
+    </div>
+</div>
+</div>
+      <input class="form-control" placeholder="Minimum Number of Players" name="minp" id="srch-term4" type="number" min=1 onchange="checkMaxGreaterMin();" required />
       <input class="form-control" placeholder="Maximum Number of Players" name="maxp" id="srch-term5" type="number" min=1 required />
 
 
 <button class="btn btn-default" id="buttonstyle2" type="submit" >Create Game</button>
-
     </div>
   </form>
 </div>
-
 </div>
 </div>
 </div>

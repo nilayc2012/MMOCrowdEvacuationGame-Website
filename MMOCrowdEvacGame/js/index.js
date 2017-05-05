@@ -93,6 +93,30 @@ $('.carousel').on('slide.bs.carousel',function(e){
     document.getElementById("env-ch").value = slideTo.toString();
 });
 
+function downloadData(gameid,gname,owner)
+{
+	  BootstrapDialog.show({
+            title: 'Default Title',
+            message: 'Game Data Format?',
+            buttons: [{
+                label: 'JSON',
+                action: function(dialog) {
+                    window.location.replace("http://spanky.rutgers.edu/MMOCrowdEvacGame/download_json.php?gameid="+gameid+"&gname="+gname+"&owner="+owner);
+                }
+            }, {
+                label: 'XML',
+                action: function(dialog) {
+                     window.location.replace("http://spanky.rutgers.edu/MMOCrowdEvacGame/download_xml.php?gameid="+gameid+"&gname="+gname+"&owner="+owner);
+                }
+            },
+{
+                label: 'Text',
+                action: function(dialog) {
+                     window.location.replace("http://spanky.rutgers.edu/MMOCrowdEvacGame/download_text.php?gameid="+gameid+"&gname="+gname+"&owner="+owner);
+                }
+            }]
+        });
+}
 
 function removeGame(gameid)
 {
@@ -131,4 +155,6 @@ function removeGame1(gameid)
             }]
         });
 }
+
+
 

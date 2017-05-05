@@ -7,7 +7,7 @@ session_start();
 	}
 
 	$user_list=array();
-	$sql="SELECT * FROM games";
+	$sql="SELECT * FROM games where live='y'";
 	$result = $conn->query($sql);
 
 

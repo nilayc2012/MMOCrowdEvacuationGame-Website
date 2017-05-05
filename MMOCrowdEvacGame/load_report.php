@@ -2,11 +2,10 @@
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-	$gid = $_GET['gid'];
+	$gid = $_GET['gameid'];
 	$gname = $_GET['gname'];
 	$owner=$_GET['owner'];
 
-	$user_url="http://spanky.rutgers.edu/MMOCrowdEvacGame/report_page.php?gid=" . $gid . "&gname=" . $gname . "&owner=" . $owner;
 
 	$conn = mysqli_connect("localhost", "root", "RutgersRah", "mmocrowdgame");
 	
@@ -16,47 +15,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 	$sql="SELECT * FROM report where gameid='".$gid."'";
 	$result = $conn->query($sql);
-	
+	$report_list=array();	
+
 	if($result->num_rows >=1)
 	{
-		while ($row = $result->fetch_assoc())
-		{ 
+		$row = $result->fetch_assoc();
+
+		$sql="SELECT gameid,gameplayid,playerid";
+
 			if($row["startpos"]==='y')
 			{
-				$user_url= $user_url . $row["gameid"]
+				
 			}
-			elseif($row["startpos"]==='y')
+			if($row["endpos"]==='y')
 			{
 			
 			}
-			elseif($row["startpos"]==='y')
+			if($row["score"]==='y')
+			{
+				$sql=$sql . ",score";
+			}
+			if($row["scoretype"]==='y')
+			{
+				$sql=$sql . ",scoretype";
+			}
+			if($row["scorertype"]==='y')
+			{
+				$sql=$sql . ",scorertype";
+			}
+			if($row["pathpoints"]==='y')
 			{
 			
 			}
-			elseif($row["startpos"]==='y')
+			if($row["goaltype"]==='y')
 			{
-			
+				$sql=$sql . ",goaltype";
 			}
-			elseif($row["startpos"]==='y')
+			if($row["goalpos"]==='y')
 			{
-			
+				
 			}
-			elseif($row["startpos"]==='y')
-			{
 			
+			$sql= $sql . " from gameplay where gameid='" . $gid . "'"; 
+			$result = $conn->query($sql);
+			if($result->num_rows >=1)
+			{
+				while($row1=$result->fetch_assoc())
+				{
+					array_push($report_list,"<tr><td>" . $row1["gameid"] . "</td><td>" . $row1["gameplayid"] . "</td><td>" . $row1["playerid"] . "</td><td>" . $gname . "</td><td>" . $row1["score"] . "</td><td>" . $row1["scoretype"]. "</td><td>" . $row1["goaltype"]. "</td><td>" . $row1["scorertype"] . "</td><td><a href='http://spanky.rutgers.edu/MMOCrowdEvacGame/position_data/goals/" . $row1["gameplayid"] . ".txt' >Goals</a></td><td><a href='http://spanky.rutgers.edu/MMOCrowdEvacGame/position_data/paths/" . $row1["gameplayid"] . "/" . $row1["playerid"] . ".txt'>Points</a></td></tr>");		
+				}
+				
+				$_SESSION["report_list"]=$report_list;
 			}
-			elseif($row["startpos"]==='y')
+			else
 			{
-			
+				$_SESSION['report-load-response']="failed";
 			}
 
-			 . "," . $row1["gamename"] . "," . $row1["gamenvid"] . "," .$row1["gameruleid"] . "," . $row1["gameoverid"] . "," . $row1["diffid"] . "," . $row1["ctypeid"] . "," . $row1["minplayers"] . "," . $row1["maxplayers"] . "," . $row1["owner"] . "," . $row1["game_desc"] . "~"; 
-		}
-
-		
 	}
 
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+header('Location: http://spanky.rutgers.edu/MMOCrowdEvacGame/report_page.php?gid=' . $gid . '&gname=' . $gname . '&owner=' . $owner . '&gameplayid=' . $row1["gameplayid"] . '&playerid=' . $row1["playerid"]);
 
 
 $conn->close();	
